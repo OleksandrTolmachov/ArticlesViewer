@@ -1,0 +1,44 @@
+﻿@model RegisterCommand
+@{
+    ViewBag.Title = "Account Registration";
+}
+<div class="row">
+    <div class="col-3"></div>
+    <div class="col-6">
+        <h4 class="text-center">Registration:</h4>
+        <form method="post" id="create-form" class="needs-validation fs-6">
+            <div class="mb-3">
+                <label asp-for=UserName></label><br>
+                <input asp-for=UserName class="form-control">
+                <span asp-validation-for=UserName class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for=Email></label><br>
+                <input asp-for=Email class="form-control">
+                <span asp-validation-for=Email class="text-danger"></span>
+            </div>
+            <div class="mb-3 mt-3">
+                <label asp-for=Password></label><br>
+                <input asp-for=Password class="form-control">
+            </div>
+            <div class="mb-3 mt-3">
+                <label asp-for=ConfirmPassword></label><br>
+                <input asp-for=ConfirmPassword class="form-control">
+            </div>
+            <div class="mb3 bg-danger rounded text-white" asp-validation-summary="All">
+            </div>
+            <a asp-controller="Account" asp-action="Login">Already have an account</a>
+            <div class="mb-3 mt-3" style="display: flex; justify-content: center">
+                <button type="submit" class="btn btn-lg btn-success mb-3">Create</button>
+            </div>
+        </form>
+    </div>
+    <div class="col-3"></div>
+</div>
+@section scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous" referrerpolicy="no-referrer" asp-fallback-test="window.jQuery" asp-fallback-src="/lib/jquery/jquery.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.4/jquery.validate.min.js" integrity="sha512-FOhq9HThdn7ltbK8abmGn60A/EMtEzIzv1rvuh+DqzJtSGq8BRdEN0U+j0iKEIffiw/yEtVuladk6rsG4X6Uqg==" crossorigin="anonymous" referrerpolicy="no-referrer" asp-fallback-test="window.jQuery.validator" asp-fallback-src="/lib/jquery-validate/jquery.validate.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.12/jquery.validate.unobtrusive.min.js" integrity="sha512-o6XqxgrUsKmchwy9G5VRNWSSxTS4Urr4loO6/0hYdpWmFUfHqGzawGxeQGMDqYzxjY9sbktPbNlkIQJWagVZQg==" crossorigin="anonymous" referrerpolicy="no-referrer" asp-fallback-test="window.jQuery.validator.unobtrusive" asp-fallback-src="/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

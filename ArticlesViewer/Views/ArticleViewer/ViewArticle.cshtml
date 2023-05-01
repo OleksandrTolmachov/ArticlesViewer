@@ -1,0 +1,19 @@
+﻿@model ArticleResponse
+
+<section class="row">
+    <div class="col-3"></div>
+    <div class="col-6 text-center">
+        <h2 class="position-relative">
+            @Model.Title
+        </h2>
+        <span class="badge bg-primary">
+            @Model.TopicTag
+        </span>
+        <br />
+        <span>@Model.PublicationDate.ToShortDateString()</span>
+    </div>
+    <div class="col-3"></div>
+</section>
+<main class="overflow-hidden">
+    @Html.Raw(@Model.Content)
+</main>
