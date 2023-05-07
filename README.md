@@ -2,6 +2,7 @@
 
 ##  About
 It is simple app for creating/reading articles. There are features like filtering/sorting articles by diffrent parameters.
+The app is built on clean architecture design.
 
 ## This is using ASP.NET Core with:
 
