@@ -1,7 +1,7 @@
 # ArticlesViewer
 
 ##  About
-It is simple app for creating/reading articles. There are features like filtering articles by diffrent parameters and sorting.
+It is simple app for creating/reading articles. There are features like filtering/sorting articles by diffrent parameters.
 
 ## This is using ASP.NET Core with:
 
