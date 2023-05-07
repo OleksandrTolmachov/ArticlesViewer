@@ -1,4 +1,4 @@
-﻿@inject SignInManager<ApplicationUser> signInManager
+﻿@inject SignInManager<User> signInManager
 @{
     var name = User.FindFirst(ClaimTypes.Name)?.Value;
 }

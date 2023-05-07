@@ -15,8 +15,8 @@
             <span asp-validation-for=Title class="text-danger"></span>
         </div>
         <div class="mb-3">
-            <label asp-for=TopicTag></label><br>
-            <select class="form-select" asp-for=TopicTag asp-items=@ViewBag.TopicTags>
+            <label asp-for=TopicTag.Tag></label><br>
+            <select class="form-select" asp-for=TopicTag.Tag asp-items=@ViewBag.TopicTags>
                 <option value="">Select</option>
             </select>
         </div>

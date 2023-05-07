@@ -1,5 +1,4 @@
 ﻿using ArticlesViewer.Application.Commands;
-using ArticlesViewer.Application.DTO;
 using ArticlesViewer.Application.Queries;
 using ArticlesViewer.UI.Filters;
 using MediatR;
@@ -7,8 +6,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
-namespace ArticlesR.Controllers;
+namespace ArticlesViewer.UI.Controllers;
+
+
 [Route("{controller}/{action}")]
+[AllowAnonymous]
 public class AccountController : Controller
 {
     private readonly IMediator _mediator;
@@ -19,14 +21,12 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [AllowAnonymous]
     public IActionResult Register()
     {
         return View();
     }
 
     [HttpPost]
-    [AllowAnonymous]
     [TypeFilter(typeof(ModelValidationActionFilter))]
     public async Task<IActionResult> Register([FromForm] RegisterCommand model)
     {
@@ -41,14 +41,12 @@ public class AccountController : Controller
     }
 
     [HttpGet]
-    [AllowAnonymous]
     public IActionResult Login()
     {
         return View();
     }
 
     [HttpPost]
-    [AllowAnonymous]
     [TypeFilter(typeof(ModelValidationActionFilter))]
     public async Task<IActionResult> Login(LogInCommand model,
         string? returnUrl)
@@ -66,6 +64,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [Authorize]
     public async Task<IActionResult> Logout()
     {
         await _mediator.Send(new LogoutCommand());
@@ -73,7 +72,6 @@ public class AccountController : Controller
     }
 
     [AcceptVerbs("Get", "Post")]
-    [AllowAnonymous]
     public async Task<IActionResult> IsEmailInUse(GetIfEmailInUseQuery model)
     {
         
@@ -81,7 +79,6 @@ public class AccountController : Controller
     }
 
     [AcceptVerbs("Get", "Post")]
-    [AllowAnonymous]
     public async Task<IActionResult> IsNameInUse(GetIfNameInUseQuery model)
     {
       return await _mediator.Send(model) ? Json("The name already exists.") : Json(true);
@@ -95,17 +92,16 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> UserSettings(UserUpdateResponse userUpdate)
+    public async Task<IActionResult> UserSettings(UpdateUserCommand updateCommand)
     {
-        userUpdate.Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        await _mediator.Send(new UpdateUserCommand(userUpdate));
-        return View(userUpdate);
+        updateCommand.Id = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        return View(await _mediator.Send(updateCommand));
     }
 
     [HttpGet]
     public async Task<IActionResult> UserAvatar()
     {
         var image = await _mediator.Send(new GetUserAvatarQuery(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-        return Ok(image.File);
+        return File("/icons/article.png", "png");
     }
 }

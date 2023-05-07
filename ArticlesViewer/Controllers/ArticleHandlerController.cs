@@ -1,52 +1,59 @@
-﻿using ArticlesViewer.Application.DTO;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using ArticlesViewer.Application.Commands.Articles;
 using ArticlesViewer.Application.Queries;
 using ArticlesViewer.Application.Commands;
+using Microsoft.AspNetCore.Authorization;
+using ArticlesViewer.UI.Policies.Requirements;
 
-namespace ArticlesR.Controllers
+namespace ArticlesViewer.UI.Controllers;
+
+[Route("{controller}/{action}")]
+public class ArticleHandlerController : Controller
 {
-    [Route("{controller}/{action}")]
-    public class ArticleHandlerController : Controller
+    private readonly IMediator _mediator;
+    private readonly IAuthorizationService _authorizationService;
+
+    public ArticleHandlerController(IMediator mediator, IAuthorizationService authorizationService)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+        _authorizationService = authorizationService;
+    }
 
-        public ArticleHandlerController(IMediator mediator)
-        {
-            _mediator = mediator;
-        }
+    [HttpGet]
+    public IActionResult CreateArticle()
+    {
+        return View();
+    }
 
-        [HttpGet]
-        public IActionResult CreateArticle()
-        {
-            return View();
-        }
+    [HttpPost]
+    public async Task<IActionResult> CreateArticle(CreateArticleCommand createRequest)
+    {
+        if (!ModelState.IsValid) return View(createRequest);
 
-        [HttpPost]
-        public async Task<IActionResult> CreateArticle(CreateArticleCommand createRequest)
-        {
-            if (!ModelState.IsValid) return View(createRequest);
+        createRequest.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        await _mediator.Send(createRequest);
 
-            createRequest.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            await _mediator.Send(createRequest);
+        return RedirectToAction("Index", "ArticleViewer");
+    }
 
-            return RedirectToAction("Index", "ArticleViewer");
-        }
+    [HttpPost]
+    public async Task<IActionResult> DeleteArticle(DeleteArticleCommand deleteCommand)
+    {
+        var result = await _authorizationService.AuthorizeAsync
+            (User, deleteCommand, new AllowDeleteArticleRequirement());
 
-        [HttpPost]
-        public async Task<IActionResult> DeleteArticle(string id)
-        {
-            await _mediator.Send(new DeleteArticleCommand(id));
-            return RedirectToAction("Index", "ArticleViewer");
-        }
+        if (!result.Succeeded) return Forbid();
 
-        [HttpGet]
-        public async Task<IActionResult> EditArticle(string id)
-        {
-            var article = await _mediator.Send(new GetArticleQuery(id));
-            return View(article);
-        }
+        await _mediator.Send(deleteCommand);
+        return RedirectToAction("Index", "ArticleViewer");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> EditArticle(GetArticleQuery getQuery)
+    {
+        return View(await _mediator.Send(getQuery));
     }
 }
+

@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ArticlesViewer.Application.Queries;
 using ArticlesViewer.Domain;
+using System.Security.Claims;
 
-namespace ArticlesR.Controllers;
+namespace ArticlesViewer.UI.Controllers;
 
 [Route("{controller=ArticleViewer}/{action=Index}")]
+[AllowAnonymous]
 public class ArticleViewerController : Controller
 {
     private readonly IMediator _mediator;
@@ -16,7 +18,6 @@ public class ArticleViewerController : Controller
         _mediator = mediator;
     }
 
-    [AllowAnonymous]
     public async Task<IActionResult> Index()
     {
         var articles = await _mediator.Send(new GetAllArticlesQuery());
@@ -24,18 +25,18 @@ public class ArticleViewerController : Controller
     }
 
     [HttpGet("{id}")]
-    [AllowAnonymous]
-    public async Task<IActionResult> ViewArticle(string id)
+    public async Task<IActionResult> ViewArticle(GetArticleQuery query)
     {
-        var article = await _mediator.Send(new GetArticleQuery(id));
+        var userId = User.FindFirst(ClaimTypes.NameIdentifier);
+        if(userId is not null) query.UserId = Guid.Parse(userId.Value); 
+        var article = await _mediator.Send(query);
         return View(article);
     }
 
     [HttpGet]
-    [AllowAnonymous]
-    public async Task<IActionResult> ArticleImage(string id)
+    public async Task<IActionResult> ArticleImage(GetArticleImageQuery query)
     {
-        BlobObject image = await _mediator.Send(new GetArticleImageQuery(id));
-        return Ok(image.File);
+        BlobObject image = await _mediator.Send(query);
+        return File("/icons/article.png", "png");
     }
 }
