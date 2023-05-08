@@ -2,6 +2,6 @@
 
 namespace ArticlesViewer.Application.Commands.Articles;
 
-public record DeleteArticleCommand(string Id) : IRequest;
+public record DeleteArticleCommand(Guid Id) : IRequest;
 
 

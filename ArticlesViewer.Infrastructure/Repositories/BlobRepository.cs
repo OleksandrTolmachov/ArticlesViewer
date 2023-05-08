@@ -74,3 +74,26 @@ public class BlobRepository : IBlobRepository
         return blobClient.Uri.AbsoluteUri;
     }
 }
+
+public class FakeBlobRepository : IBlobRepository
+{
+    public Task DeleteBlobFileAsync(string name, ContainerType blobType = ContainerType.Images)
+    {
+        return Task.CompletedTask;
+    }
+
+    public Task<BlobObject?> GetBlobFileAsync(string name, ContainerType blobType = ContainerType.Images)
+    {
+        return Task.FromResult(null as BlobObject);
+    }
+
+    public Task<string> UploadBlobFileAsync(IFormFile imageFile, string name, ContainerType blobType = ContainerType.Images)
+    {
+        return Task.FromResult(null as string);
+    }
+
+    public Task<string> UploadBlobTextAsync(string text, string name, ContainerType blobType = ContainerType.Images)
+    {
+        return Task.FromResult(null as string);
+    }
+}

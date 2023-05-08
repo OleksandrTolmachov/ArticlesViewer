@@ -7,9 +7,9 @@ namespace ArticlesViewer.Application.Handlers;
 
 public class GetIfEmailInUseHandler : IRequestHandler<GetIfEmailInUseQuery, bool>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<User> _userManager;
 
-    public GetIfEmailInUseHandler(UserManager<ApplicationUser> userManager)
+    public GetIfEmailInUseHandler(UserManager<User> userManager)
     {
         _userManager = userManager;
     }

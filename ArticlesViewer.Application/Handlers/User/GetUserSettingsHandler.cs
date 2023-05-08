@@ -10,10 +10,10 @@ namespace ArticlesViewer.Application.Handlers;
 public class GetUserSettingsHandler : IRequestHandler<GetUserSettingsQuery, UserUpdateResponse>
 {
     private readonly IMapper _mapper;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<User> _userManager;
 
     public GetUserSettingsHandler(IMapper mapper,
-        UserManager<ApplicationUser> userManager)
+        UserManager<User> userManager)
     {
         _mapper = mapper;
         _userManager = userManager;

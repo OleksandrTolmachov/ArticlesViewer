@@ -7,10 +7,10 @@ namespace ArticlesViewer.Application.Handlers;
 
 public class LogInHandler : IRequestHandler<LogInCommand, SignInResult>
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<User> _signInManager;
+    private readonly UserManager<User> _userManager;
 
-    public LogInHandler(SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
+    public LogInHandler(SignInManager<User> signInManager, UserManager<User> userManager)
     {
         _signInManager = signInManager;
         _userManager = userManager;

@@ -1,5 +1,13 @@
 ﻿@model IEnumerable<ArticleResponse>
 
+@{
+    ViewBag.Title = "Update Artice";
+    ViewBag.TopicTags = Enum.GetNames(typeof(TopicTags))
+        .Select(tag => new SelectListItem() { Text = tag, Value = tag });
+    object context = ViewBag.FilterContext;
+}
+
+@await Html.PartialAsync("~/Views/Shared/_ArticleFilter.cshtml", context)
 <div class="row g-2">
     @foreach (var article in Model)
     {

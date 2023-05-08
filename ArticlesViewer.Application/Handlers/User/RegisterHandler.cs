@@ -8,12 +8,12 @@ namespace ArticlesViewer.Application.Handlers;
 
 public class RegisterHandler : IRequestHandler<RegisterCommand, IdentityResult>
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly SignInManager<User> _signInManager;
     private readonly IMapper _mapper;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<User> _userManager;
 
-    public RegisterHandler(SignInManager<ApplicationUser> signInManager,
-        IMapper mapper, UserManager<ApplicationUser> userManager)
+    public RegisterHandler(SignInManager<User> signInManager,
+        IMapper mapper, UserManager<User> userManager)
     {
         _signInManager = signInManager;
         _mapper = mapper;
@@ -22,7 +22,7 @@ public class RegisterHandler : IRequestHandler<RegisterCommand, IdentityResult>
 
     public async Task<IdentityResult> Handle(RegisterCommand request, CancellationToken cancellationToken)
     {
-        var user = _mapper.Map<ApplicationUser>(request);
+        var user = _mapper.Map<User>(request);
         var regResult = await _userManager.CreateAsync(user, request.Password);
         if (regResult.Succeeded)
         {

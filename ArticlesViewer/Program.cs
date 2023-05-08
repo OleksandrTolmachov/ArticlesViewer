@@ -8,11 +8,15 @@ using Entities;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddMvc();
+builder.Services.AddMvc(options =>
+{
+    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
+});
 
 builder.Services.AddSingleton(x => 
     new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobConnectionString")));
@@ -35,7 +39,6 @@ builder.Services.AddIdentity<User, UserRole>(options =>
 
 builder.Services.AddApplicationServices();
 builder.Services.AddInfrastructureServices();
-
 builder.Services.AddTransient<IAuthorizationHandler, AllowDeleteArticleHandler>();
 
 builder.Services.AddAuthorization(options =>

@@ -10,11 +10,11 @@ public class CreateArticleHandler : IRequestHandler<CreateArticleCommand>
 {
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<User> _userManager;
     private readonly IBlobRepository _blobRepository;
 
     public CreateArticleHandler(IMapper mapper, IUnitOfWork unitOfWork,
-        UserManager<ApplicationUser> userManager, IBlobRepository blobRepository)
+        UserManager<User> userManager, IBlobRepository blobRepository)
     {
         _mapper = mapper;
         _unitOfWork = unitOfWork;
@@ -36,23 +36,14 @@ public class CreateArticleHandler : IRequestHandler<CreateArticleCommand>
             await _blobRepository.UploadBlobFileAsync
                 (request.Image, article.Id.ToString());
 
+        request.TopicTag.Id = Guid.NewGuid();
+        await _unitOfWork.TopicTags.CreateAsync(request.TopicTag);
         await _unitOfWork.Articles.CreateAsync(article);
         await _unitOfWork.SaveChangesAsync();
 
         await _blobRepository.UploadBlobTextAsync(request.Content,
             article.Id.ToString(),
             ContainerType.ArticlesContent);
-    }
-}
-
-public static class StringToGuidExtensions
-{
-    public static Guid TryConvertThrowExceptionIfFail(this string id)
-    {
-        if (!Guid.TryParse(id, out Guid guid))
-            throw new ArgumentException($"{nameof(id)} is not in guid format.");
-
-        return guid;
     }
 }
 

@@ -18,9 +18,10 @@ public class ArticleViewerController : Controller
         _mediator = mediator;
     }
 
-    public async Task<IActionResult> Index()
+    public async Task<IActionResult> Index(FilterArticlesQuery query)
     {
-        var articles = await _mediator.Send(new GetAllArticlesQuery());
+        var articles = await _mediator.Send(query);
+        ViewBag.FilterContext = query;
         return View(articles);
     }
 

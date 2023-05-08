@@ -8,9 +8,9 @@ namespace ArticlesViewer.Application.Queries;
 public class GetUserAvatarHandler : IRequestHandler<GetUserAvatarQuery, BlobObject>
 {
     private readonly IBlobRepository _blobRepository;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<User> _userManager;
 
-    public GetUserAvatarHandler(IBlobRepository blobRepository, UserManager<ApplicationUser> userManager)
+    public GetUserAvatarHandler(IBlobRepository blobRepository, UserManager<User> userManager)
     {
         _blobRepository = blobRepository;
         _userManager = userManager;

@@ -3,4 +3,7 @@ using MediatR;
 
 namespace ArticlesViewer.Application.Queries;
 
-public record GetArticleQuery(string Id) : IRequest<ArticleResponse>;
+public record GetArticleQuery(Guid Id) : IRequest<ArticleResponse>
+{
+    public Guid UserId { get; set; }
+}

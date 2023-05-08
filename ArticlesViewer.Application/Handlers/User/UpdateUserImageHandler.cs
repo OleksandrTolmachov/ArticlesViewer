@@ -9,10 +9,10 @@ namespace ArticlesViewer.Application.Handlers;
 public class UpdateUserImageHandler : INotificationHandler<UpdateUserCommand>
 {
     private readonly IBlobRepository _blobRepository;
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<User> _userManager;
 
     public UpdateUserImageHandler(IBlobRepository blobRepository,
-        UserManager<ApplicationUser> userManager)
+        UserManager<User> userManager)
     {
         _blobRepository = blobRepository;
         _userManager = userManager;
@@ -20,8 +20,8 @@ public class UpdateUserImageHandler : INotificationHandler<UpdateUserCommand>
 
     public async Task Handle(UpdateUserCommand notification, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByIdAsync(notification.UserRequest.Id);
-        var image = notification.UserRequest.Image;
+        var user = await _userManager.FindByIdAsync(notification.Id);
+        var image = notification.Image;
         if (image is not null)
         {
             var oldImageId = user.ImageId?.ToString();

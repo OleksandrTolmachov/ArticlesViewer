@@ -7,20 +7,20 @@ namespace ArticlesViewer.Application.Handlers;
 
 public class UpdateUserNameHandler : INotificationHandler<UpdateUserCommand>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<User> _userManager;
 
-    public UpdateUserNameHandler(UserManager<ApplicationUser> userManager)
+    public UpdateUserNameHandler(UserManager<User> userManager)
     {
         _userManager = userManager;
     }
 
     public async Task Handle(UpdateUserCommand notification, CancellationToken cancellationToken)
     {
-        var user = await _userManager.FindByIdAsync(notification.UserRequest.Id);
-        if (notification.UserRequest.UserName is not null && user is not null)
+        var user = await _userManager.FindByIdAsync(notification.Id);
+        if (notification.UserName is not null && user is not null)
         {
-            user.UserName = notification.UserRequest.UserName;
-            user.NormalizedUserName = notification.UserRequest.UserName?.ToUpperInvariant();
+            user.UserName = notification.UserName;
+            user.NormalizedUserName = notification.UserName?.ToUpperInvariant();
             await _userManager.UpdateAsync(user);
         }
     }

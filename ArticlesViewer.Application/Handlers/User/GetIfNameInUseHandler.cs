@@ -7,9 +7,9 @@ namespace ArticlesViewer.Application.Handlers;
 
 public class GetIfNameInUseHandler : IRequestHandler<GetIfNameInUseQuery, bool>
 {
-    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly UserManager<User> _userManager;
 
-    public GetIfNameInUseHandler(UserManager<ApplicationUser> userManager)
+    public GetIfNameInUseHandler(UserManager<User> userManager)
     {
         _userManager = userManager;
     }

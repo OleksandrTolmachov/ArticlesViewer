@@ -1,11 +1,8 @@
 ﻿@model CreateArticleCommand
-
 @{
-    ViewBag.Title = "Update Artice";
     ViewBag.TopicTags = Enum.GetNames(typeof(TopicTags))
         .Select(tag => new SelectListItem() { Text = tag, Value = tag });
 }
-
 <section>
     <h1 class="text-center">Post article</h1>
     <form method="post" id="create-form" enctype="multipart/form-data" class="fs-6">

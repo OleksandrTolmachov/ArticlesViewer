@@ -3,15 +3,15 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Entities.Migrations
+namespace ArticlesViewer.Infrastructure.Migrations
 {
-    public partial class ArticleDatePropAdded : Migration
+    public partial class TimeStampToHistoryAdded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<DateTime>(
-                name: "PublicationDate",
-                table: "Articles",
+                name: "DateTime",
+                table: "ArticleUserHistories",
                 type: "datetime2",
                 nullable: false,
                 defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
@@ -20,8 +20,8 @@ namespace Entities.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "PublicationDate",
-                table: "Articles");
+                name: "DateTime",
+                table: "ArticleUserHistories");
         }
     }
 }

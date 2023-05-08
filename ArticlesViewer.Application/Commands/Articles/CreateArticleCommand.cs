@@ -1,10 +1,8 @@
-﻿
-using ArticlesViewer.Application.DTO;
-using ArticlesViewer.Domain.Enums;
-using MediatR;
+﻿using MediatR;
 using Microsoft.AspNetCore.Http;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
+using ArticlesViewer.Domain;
 
 namespace ArticlesViewer.Application.Commands;
 
@@ -29,7 +27,7 @@ public record CreateArticleCommand : IRequest
 
     [Required]
     [DisplayName("Tag")]
-    public TopicTags TopicTag { get; init; }
+    public TopicTag TopicTag { get; init; }
 }
 
 

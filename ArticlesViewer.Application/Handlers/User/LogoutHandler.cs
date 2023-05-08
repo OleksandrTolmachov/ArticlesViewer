@@ -7,9 +7,9 @@ namespace ArticlesViewer.Application.Handlers;
 
 public class LogoutHandler : IRequestHandler<LogoutCommand>
 {
-    private readonly SignInManager<ApplicationUser> _signInManager;
+    private readonly SignInManager<User> _signInManager;
 
-    public LogoutHandler(SignInManager<ApplicationUser> signInManager)
+    public LogoutHandler(SignInManager<User> signInManager)
     {
         _signInManager = signInManager;
     }

@@ -1,4 +1,5 @@
-﻿using ArticlesViewer.Application.Commands.Articles;
+﻿using ArticlesViewer.Application.Commands;
+using ArticlesViewer.Application.Commands.Articles;
 using ArticlesViewer.Application.DTO;
 using ArticlesViewer.Application.Queries;
 using ArticlesViewer.Application.RepositoryContracts;
@@ -26,9 +27,14 @@ public class GetArticleHandler : IRequestHandler<GetArticleQuery, ArticleRespons
     public async Task<ArticleResponse> Handle(GetArticleQuery request,
         CancellationToken cancellationToken)
     {
-        var article = await _unitOfWork.Articles.GetByIdAsync(request.Id.TryConvertThrowExceptionIfFail())
+        var article = await _unitOfWork.Articles.GetByIdAsync(request.Id)
             ?? throw new ArticleNotFoundException($"Article {request.Id} is not found");
+
+        await _mediator.Send(new AddUserArticleHistoryCommand(request.Id, request.UserId));
+
         var articleResponse = _mapper.Map<ArticleResponse>(article);
+
+        articleResponse.Views = await _unitOfWork.ArticlesUsers.GetArticleViewCountAsync(article.Id);
         articleResponse.Content = await _mediator.Send(new GetArticleTextQuery(article.Id.ToString()), cancellationToken);
         return articleResponse;
     }

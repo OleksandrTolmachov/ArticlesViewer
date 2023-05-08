@@ -1,0 +1,37 @@
+﻿@model FilterArticlesQuery 
+
+@{
+    ViewBag.TopicTags = Enum.GetNames(typeof(TopicTags))
+        .Select(tag => new SelectListItem() { Text = tag, Value = tag });
+
+    ViewBag.Orders = Enum.GetNames(typeof(Order))
+            .Select(order => new SelectListItem() { Text = order, Value = order });
+}
+
+<section>
+    <h1 class="text-center">Filter options</h1>
+    <form method="get" id="create-form" class="fs-6">
+        <div class="mb-3">
+            <label asp-for=TitleContains></label><br>
+            <input asp-for=TitleContains class="form-control">
+            <span asp-validation-for=TitleContains class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <label asp-for=Order></label><br>
+            <select class="form-select" asp-for=Order asp-items=@ViewBag.Orders>
+                <option value="">Select</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label asp-for=Tag></label><br>
+            <select class="form-select" asp-for=Tag asp-items=@ViewBag.TopicTags>
+                <option value="">Select</option>
+            </select>
+        </div>
+        <div class="mb3 bg-danger rounded text-white" asp-validation-summary="All">
+        </div>
+        <div class="mb-3 mt-3 justify-content-center d-flex gap-2">
+            <button type="submit" class="btn btn-lg btn-success mb-3">Filter</button>
+        </div>
+    </form>
+</section>

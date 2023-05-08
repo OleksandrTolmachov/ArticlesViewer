@@ -6,6 +6,7 @@ using ArticlesViewer.Application.Queries;
 using ArticlesViewer.Application.Commands;
 using Microsoft.AspNetCore.Authorization;
 using ArticlesViewer.UI.Policies.Requirements;
+using ArticlesViewer.UI.Filters;
 
 namespace ArticlesViewer.UI.Controllers;
 
@@ -28,10 +29,9 @@ public class ArticleHandlerController : Controller
     }
 
     [HttpPost]
+    [TypeFilter(typeof(ModelValidationActionFilter))]
     public async Task<IActionResult> CreateArticle(CreateArticleCommand createRequest)
     {
-        if (!ModelState.IsValid) return View(createRequest);
-
         createRequest.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
         await _mediator.Send(createRequest);
 
