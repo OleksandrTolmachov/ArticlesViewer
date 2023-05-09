@@ -10,7 +10,7 @@ public enum ContainerType
 
 public interface IBlobRepository
 {
-    public Task<BlobObject?> GetBlobFileAsync(string name, ContainerType blobType = ContainerType.Images);
+    public Task<IBlobObject?> GetBlobFileAsync(string name, ContainerType blobType = ContainerType.Images);
     public Task<string> UploadBlobFileAsync(IFormFile imageFile, string name, ContainerType blobType = ContainerType.Images);
     public Task<string> UploadBlobTextAsync(string text, string name, ContainerType blobType = ContainerType.Images);
     public Task DeleteBlobFileAsync(string name, ContainerType blobType = ContainerType.Images);

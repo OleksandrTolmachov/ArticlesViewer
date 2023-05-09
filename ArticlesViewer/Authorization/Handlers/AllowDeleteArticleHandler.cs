@@ -1,8 +1,7 @@
-﻿using ArticlesViewer.Application.Commands.Articles;
+﻿using ArticlesViewer.Application.Commands;
 using ArticlesViewer.Application.Dtos;
 using ArticlesViewer.Application.RepositoryContracts;
 using ArticlesViewer.Domain;
-using ArticlesViewer.Infrastructure;
 using ArticlesViewer.UI.Policies.Requirements;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;

@@ -1,4 +1,5 @@
 ﻿using ArticlesViewer.Application.Commands;
+using ArticlesViewer.Application.Handlers;
 using ArticlesViewer.Application.Queries;
 using Ganss.Xss;
 using Microsoft.Extensions.DependencyInjection;
@@ -22,7 +23,8 @@ public static class ApplicationDIExtensions
         );
 
         services.AddTransient<FilterHandler>(_ =>
-            (request, articles) => {
+            (request, articles) =>
+            {
                 if (request.Tag is not null)
                     return articles.Where(article => article.TopicTag == request.Tag?.ToString());
                 return articles;

@@ -1,4 +1,6 @@
 ﻿@model ArticleResponse
+@using ArticlesViewer.Application.Commands
+@inject IAuthorizationService AuthService
 
 <section class="row">
     <div class="col-3"></div>
@@ -18,3 +20,12 @@
 <main class="overflow-hidden">
     @Html.Raw(@Model.Content)
 </main>
+<div>
+    @if ((await AuthService.AuthorizeAsync(User, new DeleteArticleCommand(Model.Id), new AllowDeleteArticleRequirement())).Succeeded)
+    {
+        <form method="post" asp-controller="ArticleHandler" asp-action="DeleteArticle" asp-route-id="@Model.Id">
+            <button type="submit" class="btn btn-danger">Delete</button>
+
+        </form>
+    }
+</div>

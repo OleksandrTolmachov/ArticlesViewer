@@ -8,7 +8,7 @@
             .Select(order => new SelectListItem() { Text = order, Value = order });
 }
 
-<section>
+<div class="position-sticky" style="top: 30px">
     <h1 class="text-center">Filter options</h1>
     <form method="get" id="create-form" class="fs-6">
         <div class="mb-3">
@@ -34,4 +34,4 @@
             <button type="submit" class="btn btn-lg btn-success mb-3">Filter</button>
         </div>
     </form>
-</section>
+</div>

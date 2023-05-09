@@ -1,5 +1,4 @@
 ﻿using ArticlesViewer.Application.RepositoryContracts;
-using ArticlesViewer.Domain;
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
 using Microsoft.AspNetCore.Http;
@@ -24,7 +23,7 @@ public class BlobRepository : IBlobRepository
         await blobClient.DeleteIfExistsAsync();
     }
 
-    public async Task<BlobObject?> GetBlobFileAsync(string? name = "user-default",
+    public async Task<IBlobObject?> GetBlobFileAsync(string? name = "user-default",
         ContainerType blobType = ContainerType.Images)
     {
         var client = _blobServiceClient.GetBlobContainerClient(blobType.ToString().ToLower());
@@ -82,9 +81,9 @@ public class FakeBlobRepository : IBlobRepository
         return Task.CompletedTask;
     }
 
-    public Task<BlobObject?> GetBlobFileAsync(string name, ContainerType blobType = ContainerType.Images)
+    public Task<IBlobObject?> GetBlobFileAsync(string name, ContainerType blobType = ContainerType.Images)
     {
-        return Task.FromResult(null as BlobObject);
+        return Task.FromResult(null as IBlobObject);
     }
 
     public Task<string> UploadBlobFileAsync(IFormFile imageFile, string name, ContainerType blobType = ContainerType.Images)

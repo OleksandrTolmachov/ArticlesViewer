@@ -7,29 +7,29 @@
     object context = ViewBag.FilterContext;
 }
 
-@await Html.PartialAsync("~/Views/Shared/_ArticleFilter.cshtml", context)
-<div class="row g-2">
-    @foreach (var article in Model)
-    {
-        <div class="col-12 col-sm-6 col-md-3">
-            <div class="card p-0 ">
-                <div style="height: 200px; overflow: hidden;">
-                    <img src="~/ArticleViewer/ArticleImage?id=@article.Id" class="card-img-top img-fluid h-100 w-100" style="object-fit: cover;" alt="top-image">
-                </div>
-                <div class="card-body">
-                    <h5 class="card-title">@article.Title</h5>
-                    <p class="card-text">@article.TopicTag</p>
-                    <p class="card-text">@article.Description</p>
+<div class="row">
+    <div class="col-sm-4 col-md-3">
+        @await Html.PartialAsync("~/Views/Shared/_ArticleFilter.cshtml", context)
+    </div>
+    <div class="row col-sm-8 col-md-9 g-2">
+        @foreach (var article in Model)
+        {
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="card p-0 h-100">
+                    <div style="height: 200px; overflow: hidden;">
+                        <img src="~/ArticleViewer/ArticleImage?id=@article.Id" class="card-img-top img-fluid h-100 w-100" style="object-fit: cover;" alt="top-image">
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">@article.Title</h5>
+                        <p class="card-text">@article.TopicTag</p>
+                        <p class="card-text">@article.Description</p>
 
-                    <div class="row g-1">
-                        <form method="post" asp-controller="ArticleHandler" asp-action="DeleteArticle" asp-route-id="@article.Id">
-                            <a asp-controller="ArticleViewer" asp-action="ViewArticle" asp-route-id="@article.Id"
-                               class="btn btn-primary">Read</a>
-                            <button type="submit" class="btn btn-danger">Delete</button>
-                        </form>
+                        <div class="w-100">
+                            <a asp-controller="ArticleViewer" asp-action="ViewArticle" asp-route-id="@article.Id" class="btn btn-primary w-100">Read</a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    }
+        }
+    </div>
 </div>
