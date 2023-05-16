@@ -1,7 +1,5 @@
 ﻿using ArticlesViewer.Application.RepositoryContracts;
-using ArticlesViewer.Domain;
 using MediatR;
-using Microsoft.AspNetCore.Identity;
 
 namespace ArticlesViewer.Application.Commands.Articles;
 

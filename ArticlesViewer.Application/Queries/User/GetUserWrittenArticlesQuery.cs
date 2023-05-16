@@ -3,4 +3,4 @@ using MediatR;
 
 namespace ArticlesViewer.Application.Queries;
 
-public record GetUserSettingsQuery(string Id) : IRequest<UserSettingResponse>;
+public record GetUserWrittenArticlesQuery(Guid Id) : IRequest<IEnumerable<ArticleResponse>>;

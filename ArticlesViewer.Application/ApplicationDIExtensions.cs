@@ -1,6 +1,5 @@
 ﻿using ArticlesViewer.Application.Commands;
 using ArticlesViewer.Application.Handlers;
-using ArticlesViewer.Application.Queries;
 using Ganss.Xss;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,7 +18,11 @@ public static class ApplicationDIExtensions
 
         services.AddTransient<FilterHandler>(_ =>
             (request, articles) =>
-                articles.Where(article => article.Title.Contains(request.TitleContains, StringComparison.OrdinalIgnoreCase))
+            {
+                if (!string.IsNullOrWhiteSpace(request.TitleContains))
+                    return articles.Where(article => article.Title.Contains(request.TitleContains, StringComparison.OrdinalIgnoreCase));
+                return articles;
+            }
         );
 
         services.AddTransient<FilterHandler>(_ =>

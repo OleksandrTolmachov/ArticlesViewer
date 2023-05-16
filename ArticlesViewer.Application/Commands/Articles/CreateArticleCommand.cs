@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using ArticlesViewer.Domain;
+using MediatR;
 using Microsoft.AspNetCore.Http;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel;
-using ArticlesViewer.Domain;
+using System.ComponentModel.DataAnnotations;
 
 namespace ArticlesViewer.Application.Commands;
 

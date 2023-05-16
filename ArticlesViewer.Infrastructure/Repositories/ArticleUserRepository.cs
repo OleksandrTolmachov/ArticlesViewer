@@ -37,9 +37,10 @@ public class ArticleUserRepository : IArticleUserRepository
 
     public async Task<IEnumerable<ArticleUserHistory>> GetAllAsync(Guid userId)
     {
-        return await _context.ArticleUserHistories.Include(history => history.Article)
+        var a = await _context.ArticleUserHistories.Include(history => history.Article)
             .Where(history => history.UserId == userId)
             .ToListAsync();
+        return a;
     }
 
     public async Task CreateAsync(ArticleUserHistory value)

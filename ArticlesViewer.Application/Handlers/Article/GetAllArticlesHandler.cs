@@ -30,7 +30,7 @@ public class GetAllArticlesHandler : IRequestHandler<GetAllArticlesQuery, IEnume
         foreach (var article in articleResponses)
             article.Content = await _mediator.Send
                 (new GetArticleTextQuery(article.Id.ToString()), cancellationToken);
-        
+
         return articleResponses;
     }
 }

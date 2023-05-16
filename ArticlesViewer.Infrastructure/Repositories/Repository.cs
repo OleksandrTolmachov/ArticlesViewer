@@ -1,5 +1,4 @@
-﻿using AngleSharp.Browser.Dom;
-using ArticlesViewer.Application.RepositoryContracts;
+﻿using ArticlesViewer.Application.RepositoryContracts;
 using Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -8,7 +7,7 @@ namespace ArticlesViewer.Infrastructure;
 public class Repository<T> : IRepository<T> where T : class
 {
     protected readonly AppDbContext _context;
-    protected readonly DbSet<T> _table;   
+    protected readonly DbSet<T> _table;
 
     public Repository(AppDbContext context)
     {
@@ -24,7 +23,7 @@ public class Repository<T> : IRepository<T> where T : class
     public virtual async Task DeleteAsync(Guid id)
     {
         var entity = await _table.FindAsync(id);
-        if(entity is not null)
+        if (entity is not null)
             _table.Remove(entity);
     }
 
@@ -45,6 +44,6 @@ public class Repository<T> : IRepository<T> where T : class
 
     public async Task SaveAsync()
     {
-        await _context.SaveChangesAsync();  
+        await _context.SaveChangesAsync();
     }
 }

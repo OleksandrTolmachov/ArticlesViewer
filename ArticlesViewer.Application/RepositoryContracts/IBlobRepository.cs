@@ -1,5 +1,4 @@
-﻿using ArticlesViewer.Domain;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 
 namespace ArticlesViewer.Application.RepositoryContracts;
 public enum ContainerType

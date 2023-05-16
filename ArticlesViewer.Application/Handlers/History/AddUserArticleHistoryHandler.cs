@@ -1,7 +1,7 @@
-﻿using MediatR;
-using ArticlesViewer.Domain;
-using ArticlesViewer.Application.Commands;
+﻿using ArticlesViewer.Application.Commands;
 using ArticlesViewer.Application.RepositoryContracts;
+using ArticlesViewer.Domain;
+using MediatR;
 
 namespace ArticlesViewer.Application.Handlers;
 

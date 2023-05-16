@@ -34,7 +34,7 @@ public class CreateArticleHandler : IRequestHandler<CreateArticleCommand>
 
         if (request.Image is not null)
             await _blobRepository.UploadBlobFileAsync
-                (request.Image, article.Id.ToString());
+                (request.Image, article.Id.ToString(), ContainerType.ArticlesContent);
 
         request.TopicTag.Id = Guid.NewGuid();
         await _unitOfWork.TopicTags.CreateAsync(request.TopicTag);

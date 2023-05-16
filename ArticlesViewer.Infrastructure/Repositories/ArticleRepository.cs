@@ -17,6 +17,7 @@ public class ArticleRepository : Repository<Article>
     public override async Task<Article?> GetByIdAsync(Guid id)
     {
         return await _table.Include(article => article.TopicTag)
+            .Include(article => article.User)
             .FirstOrDefaultAsync(article => article.Id == id);
     }
 }

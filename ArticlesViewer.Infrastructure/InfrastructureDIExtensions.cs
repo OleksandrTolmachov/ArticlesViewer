@@ -1,9 +1,9 @@
-﻿using ArticlesViewer.Application.RepositoryContracts;
-using ArticlesViewer.Application;
-using ArticlesViewer.Domain;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Identity;
+﻿using ArticlesViewer.Application;
 using ArticlesViewer.Application.Dtos;
+using ArticlesViewer.Application.RepositoryContracts;
+using ArticlesViewer.Domain;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace ArticlesViewer.Infrastructure;
 
@@ -16,6 +16,7 @@ public static class InfrastructureDIExtensions
         services.AddTransient<IUnitOfWork, UnitOfWork>();
         services.AddTransient<IBlobRepository, FakeBlobRepository>();
         services.AddTransient<IArticleUserRepository, ArticleUserRepository>();
+        services.AddTransient<IRepository<User>, UserRepository>();
 
         SeedData.Initialize(services.BuildServiceProvider());
     }

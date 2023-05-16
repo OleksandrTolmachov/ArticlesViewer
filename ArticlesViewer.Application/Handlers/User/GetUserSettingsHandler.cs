@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace ArticlesViewer.Application.Handlers;
 
-public class GetUserSettingsHandler : IRequestHandler<GetUserSettingsQuery, UserUpdateResponse>
+public class GetUserSettingsHandler : IRequestHandler<GetUserSettingsQuery, UserSettingResponse>
 {
     private readonly IMapper _mapper;
     private readonly UserManager<User> _userManager;
@@ -19,9 +19,9 @@ public class GetUserSettingsHandler : IRequestHandler<GetUserSettingsQuery, User
         _userManager = userManager;
     }
 
-    public async Task<UserUpdateResponse> Handle(GetUserSettingsQuery request, CancellationToken cancellationToken)
+    public async Task<UserSettingResponse> Handle(GetUserSettingsQuery request, CancellationToken cancellationToken)
     {
         var user = await _userManager.FindByIdAsync(request.Id);
-        return _mapper.Map<UserUpdateResponse>(user);
+        return _mapper.Map<UserSettingResponse>(user);
     }
 }

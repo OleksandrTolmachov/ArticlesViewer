@@ -8,7 +8,7 @@ public class Article
     [Key]
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
-    [ForeignKey(nameof(UserId))]    
+    [ForeignKey(nameof(UserId))]
     public User? User { get; set; }
     public DateTime PublicationDate { get; set; }
     public string Title { get; set; } = string.Empty;

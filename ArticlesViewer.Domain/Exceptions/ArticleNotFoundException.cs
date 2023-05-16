@@ -1,7 +1,4 @@
-﻿
-using System.Runtime.Serialization;
-
-namespace ArticlesViewer.Domain.Exceptions;
+﻿namespace ArticlesViewer.Domain.Exceptions;
 
 public class ArticleNotFoundException : Exception
 {

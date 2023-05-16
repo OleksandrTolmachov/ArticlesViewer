@@ -1,7 +1,7 @@
-﻿using MediatR;
-using Microsoft.AspNetCore.Identity;
+﻿using ArticlesViewer.Application.Queries;
 using ArticlesViewer.Domain;
-using ArticlesViewer.Application.Queries;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
 
 namespace ArticlesViewer.Application.Handlers;
 

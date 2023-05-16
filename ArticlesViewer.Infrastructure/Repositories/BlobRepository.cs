@@ -23,7 +23,7 @@ public class BlobRepository : IBlobRepository
         await blobClient.DeleteIfExistsAsync();
     }
 
-    public async Task<IBlobObject?> GetBlobFileAsync(string? name = "user-default",
+    public async Task<IBlobObject?> GetBlobFileAsync(string? name,
         ContainerType blobType = ContainerType.Images)
     {
         var client = _blobServiceClient.GetBlobContainerClient(blobType.ToString().ToLower());

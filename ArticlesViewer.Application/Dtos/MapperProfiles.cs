@@ -12,13 +12,13 @@ public class UserMapperProfile : Profile
     {
         CreateMap<RegisterCommand, User>();
         CreateMap<UpdateUserCommand, UserResponse>();
-        CreateMap<User, UserUpdateResponse>();
+        CreateMap<User, UserSettingResponse>();
         CreateMap<User, UserResponse>();
         CreateMap<CreateArticleCommand, Article>()
             .ForMember(dest => dest.TagId, opt => opt.MapFrom(src => src.TopicTag.Id));
         CreateMap<Article, ArticleResponse>()
              .ForMember(dest => dest.TopicTag, opt => opt.MapFrom(src => src.TopicTag.Tag));
-        CreateMap<User, UserUpdateResponse>();
-        CreateMap<UserResponse, UserUpdateResponse>();
+        CreateMap<User, UserSettingResponse>();
+        CreateMap<UserResponse, UserSettingResponse>();
     }
 }

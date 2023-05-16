@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using ArticlesViewer.Application.Commands;
 using ArticlesViewer.Domain;
-using Microsoft.AspNetCore.Identity;
 using AutoMapper;
-using ArticlesViewer.Application.Commands;
+using MediatR;
+using Microsoft.AspNetCore.Identity;
 
 namespace ArticlesViewer.Application.Handlers;
 
