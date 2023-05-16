@@ -1,7 +1,7 @@
 # ArticlesViewer
 
 ##  About
-<img src="https://github.com/OleksandrTolmachov/ArticlesViewer/blob/master/imageexample.png" height="350"/>
+<img src="https://github.com/OleksandrTolmachov/ArticlesViewer/blob/master/imageexample.png" height="400"/>
 It is simple app for creating/reading articles. There are features like filtering/sorting articles by diffrent parameters.
 The app is built on clean architecture design.
 
