@@ -1,0 +1,50 @@
+﻿@model UserResponse
+
+<section class="row mb-4">
+    <div class="col-md-3 col-sm-1">
+    </div>
+    <div class="shadow overflow col-md-6 col-sm-10">
+        <div class="row" id="profile">
+            <div class="col-4" style="height: 80px; width: 80px; overflow: hidden;">
+                <img src="/icons/usericon.webp" class="card-img-top img-fluid h-100 w-100" style="object-fit: cover;" alt="top-image">
+            </div>
+            <div class="col-8">
+                <span class="badge bg-primary">Profile</span></br>
+                <div class="nickname">
+                    <span>Name: </span>@Model.UserName
+                </div>
+                <div class="email">
+                    <span>Email: </span>@Model.Email
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-3 col-sm-1">
+    </div>
+</section>
+<section class="row">
+    <div class="col-6">
+        <h3>History: </h3>
+
+        @foreach (var userArticle in (IEnumerable<ArticleUserHistory>)ViewBag.History)
+        {
+            <p>
+                <a asp-controller="ArticleViewer" asp-action="ViewArticle" asp-route-id="@userArticle.ArticleId">@userArticle.Article.Title </a> <text>
+                    - @userArticle.DateTime
+                </text>
+            </p>
+        }
+    </div>
+    <div class="col-6">
+        <h3>Written: </h3>
+
+        @foreach (var article in (IEnumerable<ArticleResponse>)ViewBag.WrittenArticles)
+        {
+            <p>
+                <a asp-controller="ArticleViewer" asp-action="ViewArticle" asp-route-id="@article.Id">@article.Title </a> <text>
+                    - @article.PublicationDate
+                </text>
+            </p>
+        }
+    </div>
+</section>

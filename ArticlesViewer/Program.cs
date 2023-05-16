@@ -18,7 +18,7 @@ builder.Services.AddMvc(options =>
     options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 
-builder.Services.AddSingleton(x => 
+builder.Services.AddSingleton(x =>
     new BlobServiceClient(builder.Configuration.GetConnectionString("AzureBlobConnectionString")));
 
 builder.Services.AddDbContext<AppDbContext>((DbContextOptionsBuilder options) =>

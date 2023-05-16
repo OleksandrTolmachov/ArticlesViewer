@@ -1,8 +1,8 @@
-﻿using MediatR;
+﻿using ArticlesViewer.Application.Queries;
+using ArticlesViewer.Application.RepositoryContracts;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using ArticlesViewer.Application.Queries;
-using ArticlesViewer.Domain;
 using System.Security.Claims;
 
 namespace ArticlesViewer.UI.Controllers;
@@ -29,7 +29,7 @@ public class ArticleViewerController : Controller
     public async Task<IActionResult> ViewArticle(GetArticleQuery query)
     {
         var userId = User.FindFirst(ClaimTypes.NameIdentifier);
-        if(userId is not null) query.UserId = Guid.Parse(userId.Value); 
+        if (userId is not null) query.UserId = Guid.Parse(userId.Value);
         var article = await _mediator.Send(query);
         return View(article);
     }
@@ -37,7 +37,7 @@ public class ArticleViewerController : Controller
     [HttpGet]
     public async Task<IActionResult> ArticleImage(GetArticleImageQuery query)
     {
-        BlobObject image = await _mediator.Send(query);
-        return File("/icons/article.png", "png");
+        IBlobObject image = await _mediator.Send(query);
+        return Ok(image.File);
     }
 }

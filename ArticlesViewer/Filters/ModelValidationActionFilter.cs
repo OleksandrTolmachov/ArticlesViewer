@@ -7,9 +7,9 @@ public class ModelValidationActionFilter : IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
-        if(!context.ModelState.IsValid && context.Controller is Controller controller)
+        if (!context.ModelState.IsValid && context.Controller is Controller controller)
             context.Result = controller.View(controller.ViewData.Model);
-        
+
         await next();
     }
 }

@@ -15,5 +15,9 @@
       "library": "jquery-validation-unobtrusive@4.0.0",
       "destination": "wwwroot/lib/jquery-validation-unobtrusive/"
     }
-  ]
+  ],
+  "ConnectionStrings": {
+    "DefaultDb": "Data Source=(localdb)\\MSSQLLocalDB;Initial Catalog=ArticlesDb;Integrated Security=True;Connect Timeout=30;Encrypt=False;Trust Server Certificate=False;Application Intent=ReadWrite;Multi Subnet Failover=False",
+    "AzureBlobConnectionString": "DefaultEndpointsProtocol=https;AccountName=articlescontainer;AccountKey=4eYBaFpm7X6UFOzKWE2GCYyi8rUy3C9oeFUmA4uggODeSCEyOIVYI14azx5IqKfgYosq7QSoPy8S+ASt7hVNbA==;EndpointSuffix=core.windows.net"
+  }
 }

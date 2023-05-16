@@ -1,4 +1,5 @@
 ﻿using ArticlesViewer.Application.Commands;
+using ArticlesViewer.Application.DTO;
 using ArticlesViewer.Application.Queries;
 using ArticlesViewer.UI.Filters;
 using MediatR;
@@ -63,6 +64,19 @@ public class AccountController : Controller
         return View(model);
     }
 
+    [Authorize]
+    public async Task<IActionResult> UserProfile(GetUserHistoryQuery query)
+    {
+        ViewBag.History = await _mediator.Send(query);
+        ViewBag.WrittenArticles = await _mediator.Send(new GetUserWrittenArticlesQuery(query.UserId));
+        var user = await _mediator.Send(new GetUserSettingsQuery(query.UserId.ToString()));
+        return View(new UserResponse()
+        {
+            Email = user.Email,
+            UserName = user.UserName
+        });
+    }
+
     [HttpPost]
     [Authorize]
     public async Task<IActionResult> Logout()
@@ -74,14 +88,13 @@ public class AccountController : Controller
     [AcceptVerbs("Get", "Post")]
     public async Task<IActionResult> IsEmailInUse(GetIfEmailInUseQuery model)
     {
-        
         return await _mediator.Send(model) ? Json("The email already exists.") : Json(true);
     }
 
     [AcceptVerbs("Get", "Post")]
     public async Task<IActionResult> IsNameInUse(GetIfNameInUseQuery model)
     {
-      return await _mediator.Send(model) ? Json("The name already exists.") : Json(true);
+        return await _mediator.Send(model) ? Json("The name already exists.") : Json(true);
     }
 
     [HttpGet]
@@ -102,6 +115,6 @@ public class AccountController : Controller
     public async Task<IActionResult> UserAvatar()
     {
         var image = await _mediator.Send(new GetUserAvatarQuery(User.FindFirstValue(ClaimTypes.NameIdentifier)));
-        return File("/icons/article.png", "png");
+        return Ok(image.File);
     }
 }

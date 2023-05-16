@@ -8,6 +8,7 @@
         <h2 class="position-relative">
             @Model.Title
         </h2>
+        <a asp-controller="Account" asp-action="UserProfile" asp-route-userid="@Model.User.Id">Author: @Model.User.UserName</a>
         <span class="badge bg-primary">
             @Model.TopicTag
         </span>
@@ -23,9 +24,9 @@
 <div>
     @if ((await AuthService.AuthorizeAsync(User, new DeleteArticleCommand(Model.Id), new AllowDeleteArticleRequirement())).Succeeded)
     {
-        <form method="post" asp-controller="ArticleHandler" asp-action="DeleteArticle" asp-route-id="@Model.Id">
+        <form method="post" asp-controller="ArticleHandler" asp-action="DeleteArticle">
+            <input hidden name="id" value="@Model.Id">
             <button type="submit" class="btn btn-danger">Delete</button>
-
         </form>
     }
 </div>

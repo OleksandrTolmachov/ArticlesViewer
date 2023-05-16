@@ -1,12 +1,9 @@
-﻿using MediatR;
+﻿using ArticlesViewer.Application.Commands;
+using ArticlesViewer.Application.Queries;
+using ArticlesViewer.UI.Filters;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using ArticlesViewer.Application.Commands.Articles;
-using ArticlesViewer.Application.Queries;
-using ArticlesViewer.Application.Commands;
-using Microsoft.AspNetCore.Authorization;
-using ArticlesViewer.UI.Policies.Requirements;
-using ArticlesViewer.UI.Filters;
 
 namespace ArticlesViewer.UI.Controllers;
 
@@ -14,12 +11,10 @@ namespace ArticlesViewer.UI.Controllers;
 public class ArticleHandlerController : Controller
 {
     private readonly IMediator _mediator;
-    private readonly IAuthorizationService _authorizationService;
 
-    public ArticleHandlerController(IMediator mediator, IAuthorizationService authorizationService)
+    public ArticleHandlerController(IMediator mediator)
     {
         _mediator = mediator;
-        _authorizationService = authorizationService;
     }
 
     [HttpGet]
@@ -39,13 +34,9 @@ public class ArticleHandlerController : Controller
     }
 
     [HttpPost]
-    public async Task<IActionResult> DeleteArticle(DeleteArticleCommand deleteCommand)
+    [TypeFilter(typeof(DeletePermissionAuthorizationFilter))]
+    public async Task<IActionResult> DeleteArticle([FromForm] DeleteArticleCommand deleteCommand)
     {
-        var result = await _authorizationService.AuthorizeAsync
-            (User, deleteCommand, new AllowDeleteArticleRequirement());
-
-        if (!result.Succeeded) return Forbid();
-
         await _mediator.Send(deleteCommand);
         return RedirectToAction("Index", "ArticleViewer");
     }
