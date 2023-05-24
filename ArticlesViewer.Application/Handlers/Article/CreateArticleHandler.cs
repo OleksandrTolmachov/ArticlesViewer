@@ -46,4 +46,3 @@ public class CreateArticleHandler : IRequestHandler<CreateArticleCommand>
             ContainerType.ArticlesContent);
     }
 }
-
