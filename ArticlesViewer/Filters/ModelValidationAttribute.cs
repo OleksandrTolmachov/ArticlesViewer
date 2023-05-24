@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ArticlesViewer.UI.Filters;
 
-public class ModelValidationActionFilter : IAsyncActionFilter
+public class ModelValidationAttribute : Attribute, IAsyncActionFilter
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {

@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace ArticlesViewer.UI.Filters;
 
-public class DeletePermissionAuthorizationFilter : IAsyncAuthorizationFilter
+public class DeletePermissionAttribute : Attribute, IAsyncAuthorizationFilter
 {
     private readonly IAuthorizationService _authorizationService;
 
-    public DeletePermissionAuthorizationFilter(IAuthorizationService authorizationService)
+    public DeletePermissionAttribute(IAuthorizationService authorizationService)
     {
         _authorizationService = authorizationService;
     }

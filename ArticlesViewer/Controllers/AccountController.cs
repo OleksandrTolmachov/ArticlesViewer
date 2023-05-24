@@ -28,7 +28,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    [TypeFilter(typeof(ModelValidationActionFilter))]
+    [ModelValidation]
     public async Task<IActionResult> Register([FromForm] RegisterCommand model)
     {
         var result = await _mediator.Send(model);
@@ -48,7 +48,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    [TypeFilter(typeof(ModelValidationActionFilter))]
+    [ModelValidation]
     public async Task<IActionResult> Login(LogInCommand model,
         string? returnUrl)
     {
@@ -105,6 +105,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
+    [MaxFileSize(maxSizeInBytes: 1048576)]
     public async Task<IActionResult> UserSettings(UpdateUserCommand updateCommand)
     {
         updateCommand.Id = User.FindFirstValue(ClaimTypes.NameIdentifier);

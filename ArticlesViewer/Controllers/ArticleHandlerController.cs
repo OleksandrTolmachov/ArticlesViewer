@@ -24,7 +24,7 @@ public class ArticleHandlerController : Controller
     }
 
     [HttpPost]
-    [TypeFilter(typeof(ModelValidationActionFilter))]
+    [ModelValidation]
     public async Task<IActionResult> CreateArticle(CreateArticleCommand createRequest)
     {
         createRequest.UserId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -34,7 +34,7 @@ public class ArticleHandlerController : Controller
     }
 
     [HttpPost]
-    [TypeFilter(typeof(DeletePermissionAuthorizationFilter))]
+    [TypeFilter(typeof(DeletePermissionAttribute))]
     public async Task<IActionResult> DeleteArticle([FromForm] DeleteArticleCommand deleteCommand)
     {
         await _mediator.Send(deleteCommand);
