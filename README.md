@@ -1,8 +1,8 @@
 # ArticlesViewer
 
-##  About
+## About
 <img src="https://github.com/OleksandrTolmachov/ArticlesViewer/blob/master/imageexample.png" height="400"/>
-It is application for creating/reading articles. It includes features like filtering/sorting articles by diffrent parameters. Additionally there is user profile with history. The app follows a clean architecture design.
+It is the application for creating/reading articles. It includes features like filtering/sorting articles by diffrent parameters. Additionally there is user profile with history. The app follows a clean architecture design.
 
 ## This is using ASP.NET Core with:
 
